@@ -60,23 +60,23 @@ void loop() {
       case '*':       
         oled.clearDisplay();      
         oled.setTextColor(WHITE);   
-        oled.setCursor(0, 0);     
+        oled.setCursor(50, 25);     
         oled.setTextSize(2);
-        oled.print("1");
-        tone(buzzer_pin, 1523);
+        oled.print("DO");
+        tone(buzzer_pin, 523.25);
         delay(200);
-  noTone(buzzer_pin);
-delay(200); 
+        noTone(buzzer_pin);
+        delay(200); 
         oled.display();
         //delay(200);
         break;
-        
+        //587.33
       case '0':
         oled.clearDisplay();      
         oled.setTextColor(WHITE);   
-        oled.setCursor(0, 0);     
+        oled.setCursor(25, 25);    
         oled.setTextSize(2);      
-        oled.print("2");
+        oled.print("Melodia");
         oled.display();
         //delay(200);
         break;
@@ -84,9 +84,14 @@ delay(200);
       case '#':
         oled.clearDisplay();      
         oled.setTextColor(WHITE);   
-        oled.setCursor(0, 0);     
+        oled.setCursor(50, 25);     
         oled.setTextSize(2);      
-        oled.print("4");
+        
+        oled.print("RE");
+        tone(buzzer_pin, 587.33);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200); 
         oled.display();
         //delay(200);
         break;
@@ -94,13 +99,13 @@ delay(200);
       case 'D':
         oled.clearDisplay();      
         oled.setTextColor(WHITE);   
-        oled.setCursor(0, 0);     
+        oled.setCursor(50, 25);     
         oled.setTextSize(2);      
-        oled.print("5");
-         delay(200); 
-          tone(buzzer_pin, 1523); 
+        oled.print("MI");
+        tone(buzzer_pin, 659.26);
+        delay(200);
         noTone(buzzer_pin);
-      delay(500);  
+        delay(200); 
         oled.display();
         //delay(200);
         break;
