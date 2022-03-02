@@ -70,7 +70,7 @@ void loop() {
         oled.display();
         //delay(200);
         break;
-        //587.33
+       
       case '0':
         oled.clearDisplay();      
         oled.setTextColor(WHITE);   
@@ -78,6 +78,80 @@ void loop() {
         oled.setTextSize(2);      
         oled.print("Melodia");
         oled.display();
+        tone(buzzer_pin, 523.25);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200); 
+        tone(buzzer_pin, 523.25);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200); 
+        tone(buzzer_pin, 587.33);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200);
+        tone(buzzer_pin, 587.33);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200);
+        tone(buzzer_pin, 659.26);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200); 
+        tone(buzzer_pin, 659.26);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200); 
+        tone(buzzer_pin, 698.46);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200); 
+        tone(buzzer_pin, 698.46);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200);
+        tone(buzzer_pin, 783.99);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200);
+          tone(buzzer_pin, 783.99);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200);
+        tone(buzzer_pin, 698.46);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200); 
+        tone(buzzer_pin, 698.46);
+        delay(200);
+        noTone(buzzer_pin);
+          delay(200);
+        tone(buzzer_pin, 659.26);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200); 
+        tone(buzzer_pin, 659.26);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200); 
+           delay(200); 
+        tone(buzzer_pin, 587.33);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200);
+        tone(buzzer_pin, 587.33);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200);
+         tone(buzzer_pin, 523.25);
+        delay(200);
+        noTone(buzzer_pin);
+        delay(200); 
+        tone(buzzer_pin, 523.25);
+        delay(400);
+        noTone(buzzer_pin);
+        delay(200); 
+        
         //delay(200);
         break;
         
@@ -88,11 +162,17 @@ void loop() {
         oled.setTextSize(2);      
         
         oled.print("RE");
+        
         tone(buzzer_pin, 587.33);
         delay(200);
         noTone(buzzer_pin);
-        delay(200); 
+        delay(200);
+
+         
         oled.display();
+
+
+        
         //delay(200);
         break;
 
