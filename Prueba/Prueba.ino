@@ -79,4 +79,22 @@ sensorValue = analogRead(sensor_pin);
         delay(200); 
         oled.display();
 
+
+  if(VALOR<230)
+  {
+    grados=random(0,100);
+    
+    
+  }
+
+
+
+
+
+
+
+
+
+        
+
 }
