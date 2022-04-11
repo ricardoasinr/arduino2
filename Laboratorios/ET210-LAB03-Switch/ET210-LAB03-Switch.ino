@@ -10,7 +10,7 @@ Adafruit_SSD1306 oled(ANCHO, ALTO, &Wire, OLED_RESET);  // crea objeto
 
 ///////////////////////////////////////////////////////
 int sw1;
-#define sw1_pin 3
+#define sw1_pin 9
 
 
 ///////////////////////////////////////////////////////
@@ -43,7 +43,6 @@ void loop() {
   oled.setTextSize(2);      // establece tamano de texto en 1
   oled.print("SW1: ");  // escribe en pantalla el texto
   oled.print(sw1);
-  
   oled.display();     // muestra en pantalla todo lo establecido
 
 
