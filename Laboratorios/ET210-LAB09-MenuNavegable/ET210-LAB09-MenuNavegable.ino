@@ -9,27 +9,6 @@
 Adafruit_SSD1306 oled(ANCHO, ALTO, &Wire, OLED_RESET);  // crea objeto
 
 
-int volverAtras(int tecla,int buzzer_pin){
- int estadoMenu;
-   if (tecla)
-            {
-              Serial.println(tecla);
-              delay(10);
-              switch (tecla)
-                {
-                  
-                  case '8': 
-                    estadoMenu=0;
-                    tone(buzzer_pin, 4000);
-                     delay(200);
-                     noTone(buzzer_pin);
-                  break;
-                }
-            }
-
-     return estadoMenu;
-}
-
 
 /////////////////////////////////////////////////2//////
    // select the input pin for the potentiometer
@@ -49,6 +28,10 @@ int cant_7 = 0;
 int cant_4 = 0;
 int sw1;
 int estadoSw;
+
+int menu1 = 0;
+int menu2 = 0;
+int menu3 = 0;
 
 
 ///////////////////////////////////////////////////////
@@ -74,8 +57,6 @@ void setup() {
   oled.begin(SSD1306_SWITCHCAPVCC, 0x3C); // inicializa pantalla con direccion 0x3C
   oled.clearDisplay();
   oled.display();
-  //////////////////////////////////////
-
   pinMode(sw1_pin, INPUT);
 
   
@@ -84,7 +65,24 @@ void setup() {
 void loop() {
   tecla= teclado.getKey();
   sw1 = digitalRead(sw1_pin);
+    if(sw1==1)
+  {
+   
+    
+    estadosistema = 1;
 
+  }
+  else 
+  {
+    
+    estadosistema = 0;
+    estadomotor = 0;
+    estadosentidogiro = 0;
+    
+  }
+
+  
+if(estadosistema ==1){
    if (tecla)
             {
               Serial.println(tecla);
@@ -92,24 +90,40 @@ void loop() {
               switch (tecla)
                 {
                   case '1': 
-                    estadoMenu=1;
+                  
+                    menu1=1;
+                     menu2=0;
+                      menu3=0;
+                    
                     tone(buzzer_pin, 2000);
                      delay(200);
                      noTone(buzzer_pin);
                   break;
+                  
                   case '2': 
-                    estadoMenu=2;
+                    menu2=1;
+                     menu1=0;
+                     menu3=0;
+                  
                     tone(buzzer_pin, 2000);
                      delay(200);
                      noTone(buzzer_pin);
-                       case '4': 
-                    estadoMenu=3;
+                     break;
+                     
+                   case '4': 
+                    menu3=1;
+                    menu1=0;
+                    menu2=0;
                     tone(buzzer_pin, 2000);
                      delay(200);
                      noTone(buzzer_pin);
                   break;
+                  
                   case '8': 
                     estadoMenu=0;
+                    menu1=0;
+                    menu2=0;
+                    menu3=0;
                     tone(buzzer_pin, 5000);
                      delay(200);
                      noTone(buzzer_pin);
@@ -117,10 +131,9 @@ void loop() {
                   
                 }
             }
-  
+}
 
   // INFORMACION EN PANTALLA
-
 
   if (estadosistema==0 && estadoMenu ==0)
   { 
@@ -133,9 +146,9 @@ void loop() {
 
     
   }
-  else if(estadosistema==1 && estadoMenu ==0 )
+  else if(estadosistema==1 && estadoMenu == 0 )
   {
-    estadoMenu = 0;
+   
     oled.clearDisplay();
     oled.setTextColor(WHITE);   // establece color al unico disponible (pantalla monocromo)
     oled.setCursor(0, 0);     // ubica cursor en inicio de coordenadas 0,0
@@ -154,8 +167,10 @@ void loop() {
 
   }
 
- if(estadosistema ==1 && estadoMenu==1)
+
+if(menu1 == 1 && estadoMenu == 0)
        {
+             
               oled.clearDisplay();
               oled.setCursor(0, 0);
               oled.print("Menu estado");
@@ -165,17 +180,19 @@ void loop() {
               oled.print("2. Parada");
               oled.setCursor(0, 35);
               oled.print("3. Atras");
-              
-              
               oled.display();
-            
-
-            
+              estadoMenu=1;
+             
+        
        }
+  
+      
 
 
-if(estadosistema ==1 && estadoMenu==2)
+if(menu2== 1 && estadoMenu == 0)
        {
+
+              
               oled.clearDisplay();
               oled.setCursor(0, 0);
               oled.print("Menu velocidad");
@@ -188,23 +205,30 @@ if(estadosistema ==1 && estadoMenu==2)
               oled.setCursor(0, 45);
               oled.print("A. Atras");
               oled.display();
+              estadoMenu=1;
+             
        }
+    
+       
+//
 
-if(estadosistema ==1 && estadoMenu==3)
-       {
-              oled.clearDisplay();
-              oled.setCursor(0, 0);
-              oled.print("Menu sentido de giro");
-              oled.setCursor(0, 15);
-              oled.print("1. Izquierda");
-              oled.setCursor(0, 25);
-              oled.print("2. Derecha");
-              oled.setCursor(0, 35);
-              oled.print("3. Atras");
-              oled.display();
-       }
+//if(menu3== 1 && estadoMenu == 0)
+//       {
+//              
+//              oled.clearDisplay();
+//              oled.setCursor(0, 0);
+//              oled.print("Menu sentido de giro");
+//              oled.setCursor(0, 15);
+//              oled.print("1. Izquierda");
+//              oled.setCursor(0, 25);
+//              oled.print("2. Derecha");
+//              oled.setCursor(0, 35);
+//              oled.print("3. Atras");
+//              oled.display();
+//              estadoMenu=1;
+//       }
 
- 
+// 
 
 
 
@@ -249,38 +273,6 @@ if(estadosistema ==1 && estadoMenu==3)
         digitalWrite(IN2_pin, HIGH);       
     }
 
-
-// TECLADO MATRICIAL Y BUZZER
-  // obtiene tecla presionada y asigna el valor a TECLA  
-
-
-
-
-
- 
-
-
-  
-  if(sw1==1)
-  {
-   
-    
-    estadosistema = 1;
-    estadosistema = 1;
-      // tone(buzzer_pin, 1500);
-      //  delay(500);
-      //  noTone(buzzer_pin);
-  }
-  else 
-  {
-    
-    estadosistema = 0;
-    estadomotor = 0;
-    estadosentidogiro = 0;
-    
-  }
-
- 
 
 
 }
