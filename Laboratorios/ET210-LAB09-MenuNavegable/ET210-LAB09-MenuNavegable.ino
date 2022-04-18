@@ -47,6 +47,7 @@ byte pinesFilas[FILAS]= {13,12,11};
 byte pinesColumnas[COLUMNAS]= {10,9};
 Keypad teclado = Keypad(makeKeymap(keys), pinesFilas, pinesColumnas, FILAS, COLUMNAS);
 char tecla;
+//char teclaMENU1;
 ///////////////////////////////////////////////////////
 
 
@@ -64,6 +65,7 @@ void setup() {
  
 void loop() {
   tecla= teclado.getKey();
+  //teclaMENU1 = teclado.getKey();
   sw1 = digitalRead(sw1_pin);
     if(sw1==1)
   {
@@ -124,6 +126,7 @@ if(estadosistema ==1){
                     menu1=0;
                     menu2=0;
                     menu3=0;
+                    estadomotor=0;
                     tone(buzzer_pin, 5000);
                      delay(200);
                      noTone(buzzer_pin);
@@ -170,6 +173,7 @@ if(estadosistema ==1){
 
 if(menu1 == 1 && estadoMenu == 0)
        {
+              Serial.println("Menu 1");
              
               oled.clearDisplay();
               oled.setCursor(0, 0);
@@ -179,9 +183,36 @@ if(menu1 == 1 && estadoMenu == 0)
               oled.setCursor(0, 25);
               oled.print("2. Parada");
               oled.setCursor(0, 35);
-              oled.print("3. Atras");
+              oled.print("8. Atras");
               oled.display();
               estadoMenu=1;
+              //estadomotor =1;
+              
+              if (tecla && menu1==1)
+            {
+              //Serial.println(tecla);
+              delay(10);
+              switch (tecla)
+                {
+                  case '1': 
+                      estadomotor = 1;
+                     Serial.println("Encendido");
+                    tone(buzzer_pin, 300);
+                     delay(200);
+                     noTone(buzzer_pin);
+                  break;
+                   case '2': 
+                      estadomotor = 0;
+                      Serial.println("Apagado");
+                    tone(buzzer_pin, 300);
+                     delay(200);
+                     noTone(buzzer_pin);
+                  break;
+                }}
+
+             
+
+
              
         
        }
@@ -248,7 +279,7 @@ if(menu2== 1 && estadoMenu == 0)
   { digitalWrite(ledverde_pin, LOW); }
   else { digitalWrite(ledverde_pin, HIGH); }
  
-  velocidad = 1024; 
+  velocidad = 500; 
   //velocidad = map(velocidad,0,1024,0,256);
 
 
