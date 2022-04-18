@@ -1,4 +1,3 @@
-
 //////////////////////////////////////////////////////
 #include <Adafruit_GFX.h>   // libreria para pantallas graficas
 #include <Adafruit_SSD1306.h>   // libreria para controlador SSD1306 
@@ -187,11 +186,9 @@ if(menu1 == 1 && estadoMenu == 0)
               oled.display();
               estadoMenu=1;
               //estadomotor =1;
-              
-              if (tecla && menu1==1)
-            {
               //Serial.println(tecla);
               delay(10);
+              
               switch (tecla)
                 {
                   case '1': 
@@ -208,7 +205,7 @@ if(menu1 == 1 && estadoMenu == 0)
                      delay(200);
                      noTone(buzzer_pin);
                   break;
-                }}
+                }
 
              
 
@@ -234,7 +231,7 @@ if(menu2== 1 && estadoMenu == 0)
               oled.setCursor(0, 35);
               oled.print("3. 100%");
               oled.setCursor(0, 45);
-              oled.print("A. Atras");
+              oled.print("8. Atras");
               oled.display();
               estadoMenu=1;
              
@@ -279,7 +276,7 @@ if(menu2== 1 && estadoMenu == 0)
   { digitalWrite(ledverde_pin, LOW); }
   else { digitalWrite(ledverde_pin, HIGH); }
  
-  velocidad = 500; 
+  velocidad = 255; 
   //velocidad = map(velocidad,0,1024,0,256);
 
 
