@@ -1,4 +1,3 @@
-//////////////////////////////////////////////////////
 #include <Adafruit_GFX.h>   // libreria para pantallas graficas
 #include <Adafruit_SSD1306.h>   // libreria para controlador SSD1306 
 #define ANCHO 128     // reemplaza ocurrencia de ANCHO por 128
@@ -31,7 +30,8 @@ int estadoSw;
 int menu1 = 0;
 int menu2 = 0;
 int menu3 = 0;
-
+int contador1 = 0;
+int op =0;
 
 ///////////////////////////////////////////////////////
 #include <Keypad.h> // importa o incluye la libreria Keypad
@@ -79,6 +79,7 @@ void loop() {
     estadosistema = 0;
     estadomotor = 0;
     estadosentidogiro = 0;
+    estadoMenu = 0;
     
   }
 
@@ -91,14 +92,15 @@ if(estadosistema ==1){
               switch (tecla)
                 {
                   case '1': 
-                  
-                    menu1=1;
-                     menu2=0;
-                      menu3=0;
                     
+                    menu1=1;
+                    menu2=0;
+                    menu3=0;
                     tone(buzzer_pin, 2000);
-                     delay(200);
-                     noTone(buzzer_pin);
+                    delay(200);
+                    noTone(buzzer_pin);
+                   
+            
                   break;
                   
                   case '2': 
@@ -137,7 +139,7 @@ if(estadosistema ==1){
 
   // INFORMACION EN PANTALLA
 
-  if (estadosistema==0 && estadoMenu ==0)
+  if (estadosistema==0)
   { 
     oled.clearDisplay();
     oled.setTextColor(WHITE);   // establece color al unico disponible (pantalla monocromo)
@@ -172,6 +174,7 @@ if(estadosistema ==1){
 
 if(menu1 == 1 && estadoMenu == 0)
        {
+              if(estadosistema==1){
               Serial.println("Menu 1");
              
               oled.clearDisplay();
@@ -185,6 +188,8 @@ if(menu1 == 1 && estadoMenu == 0)
               oled.print("8. Atras");
               oled.display();
               estadoMenu=1;
+
+              op =1;
               //estadomotor =1;
               //Serial.println(tecla);
               delay(10);
@@ -210,7 +215,7 @@ if(menu1 == 1 && estadoMenu == 0)
              
 
 
-             
+              }
         
        }
   
@@ -220,7 +225,7 @@ if(menu1 == 1 && estadoMenu == 0)
 if(menu2== 1 && estadoMenu == 0)
        {
 
-              
+              if(estadosistema==1){
               oled.clearDisplay();
               oled.setCursor(0, 0);
               oled.print("Menu velocidad");
@@ -234,11 +239,45 @@ if(menu2== 1 && estadoMenu == 0)
               oled.print("8. Atras");
               oled.display();
               estadoMenu=1;
+              estadomotor =1;
+//              
+//              switch (tecla)
+//                {
+//                  case '1': 
+//                      velocidad = 75;
+//                     Serial.println("Velocidad 30%");
+//                    tone(buzzer_pin, 300);
+//                     delay(200);
+//                     noTone(buzzer_pin);
+//                  break;
+//
+//                  
+//                   case '2': 
+//                      velocidad = 150;
+//                     Serial.println("Velocidad 60%");
+//                    tone(buzzer_pin, 300);
+//                     delay(200);
+//                     noTone(buzzer_pin);
+//                  break;
+//
+//
+//                  case '4': 
+//                      velocidad = 255;
+//                     Serial.println("Velocidad 100%");
+//                    tone(buzzer_pin, 300);
+//                     delay(200);
+//                     noTone(buzzer_pin);
+//                  break;
+//
+
+
+        
+      //          }
              
        }
     
-       
-//
+       }
+
 
 //if(menu3== 1 && estadoMenu == 0)
 //       {
@@ -255,12 +294,12 @@ if(menu2== 1 && estadoMenu == 0)
 //              oled.display();
 //              estadoMenu=1;
 //       }
-
-// 
-
+//       
 
 
-  
+
+
+
 
     // LECTURAS Y ESCRITURAS DE PUERTOS
 
@@ -301,6 +340,11 @@ if(menu2== 1 && estadoMenu == 0)
         digitalWrite(IN2_pin, HIGH);       
     }
 
+//if(op == 1)
+//{
+//  
+//}
 
+    
 
 }
