@@ -32,6 +32,7 @@ int menu2 = 0;
 int menu3 = 0;
 int contador1 = 0;
 int op =0;
+int op2=0;
 
 ///////////////////////////////////////////////////////
 #include <Keypad.h> // importa o incluye la libreria Keypad
@@ -192,26 +193,7 @@ if(menu1 == 1 && estadoMenu == 0)
               op =1;
               //estadomotor =1;
               //Serial.println(tecla);
-              delay(10);
-              
-              switch (tecla)
-                {
-                  case '1': 
-                      estadomotor = 1;
-                     Serial.println("Encendido");
-                    tone(buzzer_pin, 300);
-                     delay(200);
-                     noTone(buzzer_pin);
-                  break;
-                   case '2': 
-                      estadomotor = 0;
-                      Serial.println("Apagado");
-                    tone(buzzer_pin, 300);
-                     delay(200);
-                     noTone(buzzer_pin);
-                  break;
-                }
-
+         
              
 
 
@@ -239,40 +221,14 @@ if(menu2== 1 && estadoMenu == 0)
               oled.print("8. Atras");
               oled.display();
               estadoMenu=1;
-              estadomotor =1;
-//              
-//              switch (tecla)
-//                {
-//                  case '1': 
-//                      velocidad = 75;
-//                     Serial.println("Velocidad 30%");
-//                    tone(buzzer_pin, 300);
-//                     delay(200);
-//                     noTone(buzzer_pin);
-//                  break;
-//
-//                  
-//                   case '2': 
-//                      velocidad = 150;
-//                     Serial.println("Velocidad 60%");
-//                    tone(buzzer_pin, 300);
-//                     delay(200);
-//                     noTone(buzzer_pin);
-//                  break;
-//
-//
-//                  case '4': 
-//                      velocidad = 255;
-//                     Serial.println("Velocidad 100%");
-//                    tone(buzzer_pin, 300);
-//                     delay(200);
-//                     noTone(buzzer_pin);
-//                  break;
-//
+              estadomotor =0;
+              op2 =2;
 
 
-        
-      //          }
+              
+
+              
+
              
        }
     
@@ -340,11 +296,37 @@ if(menu2== 1 && estadoMenu == 0)
         digitalWrite(IN2_pin, HIGH);       
     }
 
-//if(op == 1)
-//{
-//  
-//}
 
     
+
+if(op == 1)
+{
+  if(tecla){
+  delay(10);
+              
+              switch (tecla)
+                {
+                  case '1': 
+                      estadomotor = 1;
+                     Serial.println("Encendido");
+                    tone(buzzer_pin, 300);
+                     delay(200);
+                     noTone(buzzer_pin);
+                  break;
+                   case '2': 
+                      estadomotor = 0;
+                      Serial.println("Apagado");
+                    tone(buzzer_pin, 300);
+                     delay(200);
+                     noTone(buzzer_pin);
+                  break;
+                }
+  }
+
+}
+
+
+
+
 
 }
