@@ -27,12 +27,8 @@ int cant_4 = 0;
 int sw1;
 int estadoSw;
 
-int menu1 = 0;
-int menu2 = 0;
-int menu3 = 0;
-int contador1 = 0;
-int op =0;
-int op2=0;
+char oper='8';
+int menu=0;
 
 ///////////////////////////////////////////////////////
 #include <Keypad.h> // importa o incluye la libreria Keypad
@@ -47,7 +43,8 @@ byte pinesFilas[FILAS]= {13,12,11};
 byte pinesColumnas[COLUMNAS]= {10,9};
 Keypad teclado = Keypad(makeKeymap(keys), pinesFilas, pinesColumnas, FILAS, COLUMNAS);
 char tecla;
-//char teclaMENU1;
+char teclaM1;
+char teclaM2;
 ///////////////////////////////////////////////////////
 
 
@@ -58,206 +55,22 @@ void setup() {
   oled.begin(SSD1306_SWITCHCAPVCC, 0x3C); // inicializa pantalla con direccion 0x3C
   oled.clearDisplay();
   oled.display();
+  //////////////////////////////////////
+ 
+  pinMode(ledrojo_pin, OUTPUT);
+  pinMode(ledamarillo_pin, OUTPUT);
+  pinMode(ledverde_pin, OUTPUT);
+  pinMode(buzzer_pin, OUTPUT);
+  pinMode(IN1_pin, OUTPUT);
+  pinMode(IN2_pin, OUTPUT);
+  pinMode(ENA_pin, OUTPUT);
   pinMode(sw1_pin, INPUT);
-
   
 }
  
 void loop() {
-  tecla= teclado.getKey();
-  //teclaMENU1 = teclado.getKey();
-  sw1 = digitalRead(sw1_pin);
-    if(sw1==1)
-  {
-   
-    
-    estadosistema = 1;
 
-  }
-  else 
-  {
-    
-    estadosistema = 0;
-    estadomotor = 0;
-    estadosentidogiro = 0;
-    estadoMenu = 0;
-    
-  }
-
-  
-if(estadosistema ==1){
-   if (tecla)
-            {
-              Serial.println(tecla);
-              delay(10);
-              switch (tecla)
-                {
-                  case '1': 
-                    
-                    menu1=1;
-                    menu2=0;
-                    menu3=0;
-                    tone(buzzer_pin, 2000);
-                    delay(200);
-                    noTone(buzzer_pin);
-                   
-            
-                  break;
-                  
-                  case '2': 
-                    menu2=1;
-                     menu1=0;
-                     menu3=0;
-                  
-                    tone(buzzer_pin, 2000);
-                     delay(200);
-                     noTone(buzzer_pin);
-                     break;
-                     
-                   case '4': 
-                    menu3=1;
-                    menu1=0;
-                    menu2=0;
-                    tone(buzzer_pin, 2000);
-                     delay(200);
-                     noTone(buzzer_pin);
-                  break;
-                  
-                  case '8': 
-                    estadoMenu=0;
-                    menu1=0;
-                    menu2=0;
-                    menu3=0;
-                    estadomotor=0;
-                    tone(buzzer_pin, 5000);
-                     delay(200);
-                     noTone(buzzer_pin);
-                  break;
-                  
-                }
-            }
-}
-
-  // INFORMACION EN PANTALLA
-
-  if (estadosistema==0)
-  { 
-    oled.clearDisplay();
-    oled.setTextColor(WHITE);   // establece color al unico disponible (pantalla monocromo)
-    oled.setCursor(10, 30);     // ubica cursor en inicio de coordenadas 0,0
-    oled.setTextSize(1);      // establece tamano de texto en 1
-    oled.print("Sistema: Apagado");
-    oled.display(); 
-
-    
-  }
-  else if(estadosistema==1 && estadoMenu == 0 )
-  {
-   
-    oled.clearDisplay();
-    oled.setTextColor(WHITE);   // establece color al unico disponible (pantalla monocromo)
-    oled.setCursor(0, 0);     // ubica cursor en inicio de coordenadas 0,0
-    oled.setTextSize(1);      // establece tamano de texto en 1
-    oled.print("Menu principal");
-    oled.setCursor(0, 15);
-    oled.print("1. Estado");
-    oled.setCursor(0, 25);
-    oled.print("2. Velocidad");
-    oled.setCursor(0, 35);
-    oled.print("3. Sentido de giro");
-    oled.setCursor(0, 45);
-    oled.display(); 
-  
-      
-
-  }
-
-
-if(menu1 == 1 && estadoMenu == 0)
-       {
-              if(estadosistema==1){
-              Serial.println("Menu 1");
-             
-              oled.clearDisplay();
-              oled.setCursor(0, 0);
-              oled.print("Menu estado");
-              oled.setCursor(0, 15);
-              oled.print("1. Marcha");
-              oled.setCursor(0, 25);
-              oled.print("2. Parada");
-              oled.setCursor(0, 35);
-              oled.print("8. Atras");
-              oled.display();
-              estadoMenu=1;
-
-              op =1;
-              //estadomotor =1;
-              //Serial.println(tecla);
-         
-             
-
-
-              }
-        
-       }
-  
-      
-
-
-if(menu2== 1 && estadoMenu == 0)
-       {
-
-              if(estadosistema==1){
-              oled.clearDisplay();
-              oled.setCursor(0, 0);
-              oled.print("Menu velocidad");
-              oled.setCursor(0, 15);
-              oled.print("1. 30%");
-              oled.setCursor(0, 25);
-              oled.print("2. 60%");
-              oled.setCursor(0, 35);
-              oled.print("3. 100%");
-              oled.setCursor(0, 45);
-              oled.print("8. Atras");
-              oled.display();
-              estadoMenu=1;
-              estadomotor =0;
-              op2 =2;
-
-
-              
-
-              
-
-             
-       }
-    
-       }
-
-
-//if(menu3== 1 && estadoMenu == 0)
-//       {
-//              
-//              oled.clearDisplay();
-//              oled.setCursor(0, 0);
-//              oled.print("Menu sentido de giro");
-//              oled.setCursor(0, 15);
-//              oled.print("1. Izquierda");
-//              oled.setCursor(0, 25);
-//              oled.print("2. Derecha");
-//              oled.setCursor(0, 35);
-//              oled.print("3. Atras");
-//              oled.display();
-//              estadoMenu=1;
-//       }
-//       
-
-
-
-
-
-
-    // LECTURAS Y ESCRITURAS DE PUERTOS
+// LECTURAS Y ESCRITURAS DE PUERTOS
 
   if (estadosentidogiro==0)
   { digitalWrite(ledamarillo_pin, LOW); }
@@ -270,12 +83,9 @@ if(menu2== 1 && estadoMenu == 0)
   if (estadosistema==0)
   { digitalWrite(ledverde_pin, LOW); }
   else { digitalWrite(ledverde_pin, HIGH); }
- 
-  velocidad = 255; 
-  //velocidad = map(velocidad,0,1024,0,256);
 
 
-  // CONTROL DE MOTOR
+// CONTROL DE MOTOR
 
   if (estadomotor==0)
   { digitalWrite(ENA_pin, LOW); }
@@ -289,44 +99,210 @@ if(menu2== 1 && estadoMenu == 0)
         digitalWrite(IN1_pin, HIGH);        
         digitalWrite(IN2_pin, LOW);       
     }
-  else
+    else
     {
               
         digitalWrite(IN1_pin, LOW);        
         digitalWrite(IN2_pin, HIGH);       
     }
+ 
+  
+// TECLADO MATRICIAL Y BUZZER
+ tecla= teclado.getKey(); // obtiene tecla presionada y asigna el valor a TECLA  
+ sw1=digitalRead(sw1_pin);
+switch(tecla)
+      {
+        case '1': 
+          oper='1';
+          tone(buzzer_pin, 2700);
+          delay(200);
+          noTone(buzzer_pin);
+         break;
+        
+        case '2':
+         oper='2';
+         tone(buzzer_pin, 1000);
+         delay(200);
+         noTone(buzzer_pin);
+        break;
+
+        case '4':
+         oper='4';
+          tone(buzzer_pin, 1700);
+          delay(200);
+          noTone(buzzer_pin);
+        break;
+
+        case '8': 
+          oper='8';
+          tone(buzzer_pin, 1200);
+          delay(200);
+          noTone(buzzer_pin);
+         break;
+      }
 
 
+//ESTADO DEL SISTEMA
+  if (sw1==0)
+  {  
+        estadosistema = 0;  
+        estadomotor=0;
+        estadosentidogiro=0;
+        oled.clearDisplay();
+        oled.setTextColor(WHITE);   // establece color al unico disponible (pantalla monocromo)
+        oled.setCursor(0, 30);     // ubica cursor en inicio de coordenadas 0,0
+        oled.setTextSize(1);      // establece tamano de texto en 1
+        oled.print("Sistema Apagado");
+        oled.display();
+  }
+  
+  else
+    {
+        estadosistema = 1;
+        
+
+//NAVEGACION DE MENU
+
+if (menu==0){
+      switch (oper)
+     {
+      case '8':
+      if (estadosistema==1)
+        {
+        oled.clearDisplay();
+        oled.setTextColor(WHITE);   // establece color al unico disponible (pantalla monocromo)
+        oled.setCursor(0, 0);     // ubica cursor en inicio de coordenadas 0,0
+        oled.setTextSize(1);      // establece tamano de texto en 1
+        oled.print("Menu Principal");
+        oled.println();
+        oled.print("1.Estado");
+        oled.println();
+        oled.print("2.Velocidad");
+        oled.println();
+        oled.print("3.Sentido de giro");
+        oled.display();
+        }
+        break;
+        
+      case '1':
+        if (estadosistema==1)
+        {
+          oled.clearDisplay();
+          oled.setTextColor(WHITE);   // establece color al unico disponible (pantalla monocromo)
+          oled.setCursor(0, 0);     // ubica cursor en inicio de coordenadas 0,0
+          oled.setTextSize(1);      // establece tamano de texto en 1
+          oled.print("Menu Estado");
+          oled.println();
+          oled.print("1.Marcha");
+          oled.println();
+          oled.print("2.Parada");
+          oled.println();
+          oled.print("A.Atras");
+          oled.display();  
+          menu=1;  
+        }
+        break;
+
+      case '2':
+        if (estadosistema==1)
+        {
+          oled.clearDisplay();
+          oled.setTextColor(WHITE);   // establece color al unico disponible (pantalla monocromo)
+          oled.setCursor(0, 0);     // ubica cursor en inicio de coordenadas 0,0
+          oled.setTextSize(1);      // establece tamano de texto en 1
+          oled.print("Menu Velocidad");
+          oled.println();
+          oled.print("1.30%");
+          oled.println();
+          oled.print("2.60%");
+          oled.println();
+          oled.print("3.100%");
+          oled.println();
+          oled.print("A.Atras");
+          oled.display();
+          menu=2; 
+        }
+        break;
+      
+      case '4':
+        if (estadosistema==1)
+        {
+          oled.clearDisplay();
+          oled.setTextColor(WHITE);   // establece color al unico disponible (pantalla monocromo)
+          oled.setCursor(0, 0);     // ubica cursor en inicio de coordenadas 0,0
+          oled.setTextSize(1);      // establece tamano de texto en 1
+          oled.print("Menu Sentido de giro");
+          oled.println();
+          oled.print("1.Izquierda");
+          oled.println();
+          oled.print("2.Derecha");
+          oled.println();
+          oled.print("A.Atras");
+          oled.display(); 
+          menu=3;
+        }
+        break;
+  
+      default: 
+        break;      
+    }
+}
+
+if (menu==1){
+   switch(oper)
+    {
+      case '1':
+        estadomotor=1;
+      break;
+      case '2':
+        estadomotor=0;
+      break;
+      case '8':
+        menu=0;
+      break;
+      default: 
+        break;  
+    }
+    }
+
+if (menu==2){
+   switch(oper)
+    {
+      case '1':
+        velocidad=80;
+      break;
+      case '2':
+        velocidad=110;
+      break;
+      case '4':
+        velocidad=160;
+      break;
+      case '8':
+        menu=0;
+      break;
+      default: 
+        break;  
+    }
+    }
+
+if (menu==3){
+   switch(oper)
+    {
+      case '1':
+        estadosentidogiro=0;
+      break;
+      case '2':
+        estadosentidogiro=1;
+      break;
+      case '8':
+        menu=0;
+      break;
+      default: 
+        break;  
+    }
+    }
+    }
+    } 
     
 
-if(op == 1)
-{
-  if(tecla){
-  delay(10);
-              
-              switch (tecla)
-                {
-                  case '1': 
-                      estadomotor = 1;
-                     Serial.println("Encendido");
-                    tone(buzzer_pin, 300);
-                     delay(200);
-                     noTone(buzzer_pin);
-                  break;
-                   case '2': 
-                      estadomotor = 0;
-                      Serial.println("Apagado");
-                    tone(buzzer_pin, 300);
-                     delay(200);
-                     noTone(buzzer_pin);
-                  break;
-                }
-  }
-
-}
-
-
-
-
-
-}
+ 
