@@ -39,14 +39,7 @@ void loop () {
    //   alarma = false;         // carga valor falso en variable de control
   //  }             // para evitar ingresar mas de una vez
   }
-   if ( fecha.hour() == 19 && fecha.minute() == 26 && fecha.second() == 5){ // si hora = 14 y minutos = 30
-   // if ( alarma == true ){        // si alarma tiene un valor verdadero
-      Serial.println( "Alarma desactivada" );// imprime en monitor serie texto Alarma
-      digitalWrite(13,LOW);
-      
-   //   alarma = false;         // carga valor falso en variable de control
-  //  }             // para evitar ingresar mas de una vez
-  }
+   
  Serial.print(fecha.day());       // funcion que obtiene el dia de la fecha completa
  Serial.print("/");         // caracter barra como separador
  Serial.print(fecha.month());       // funcion que obtiene el mes de la fecha completa
@@ -61,9 +54,12 @@ void loop () {
  
  delay(1000);           // demora de 1 segundo
 
-  //if ( fecha.hour() == 19 && fecha.minute() == 25 ) {  // si hora = 2 y minutos = 0 restablece valor de
-    
-  //}
- //   alarma = true;          // variable de control en verdadero 
-
+ if ( fecha.hour() == 19 && fecha.minute() == 26 && fecha.second() == 5){ // si hora = 14 y minutos = 30
+   // if ( alarma == true ){        // si alarma tiene un valor verdadero
+      Serial.println( "Alarma desactivada" );// imprime en monitor serie texto Alarma
+      digitalWrite(13,LOW);
+      
+   //   alarma = false;         // carga valor falso en variable de control
+  //  }             // para evitar ingresar mas de una vez
+  }
 }
